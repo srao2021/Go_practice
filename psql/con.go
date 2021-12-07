@@ -31,6 +31,19 @@ func main() {
 
 	// Create an empty user and make the sql query (using $1 for the parameter)
 	var myUser User
+
+	deleteStmt := `delete from "users" where id=2`
+	_, e1 := db.Exec(deleteStmt)
+	CheckError(e1)
+
+	insertStmt := `insert into "users"("id", "email", "password") values(2, 'smith@123.com', 'smith')`
+	_, e := db.Exec(insertStmt)
+	CheckError(e)
+
+	updateStmt := `update "users" set email='smith@1234.com' where id =$1`
+	_, e2 := db.Exec(updateStmt, 2)
+	CheckError(e2)
+
 	userSql := "SELECT id, email, password FROM users WHERE id = $1"
 
 	err = db.QueryRow(userSql, 2).Scan(&myUser.ID, &myUser.Email, &myUser.Password)
@@ -39,4 +52,10 @@ func main() {
 	}
 
 	fmt.Printf("Hi %s, welcome back!\n", myUser.Email)
+}
+
+func CheckError(err error) {
+	if err != nil {
+		panic(err)
+	}
 }
