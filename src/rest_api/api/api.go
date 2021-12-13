@@ -2,16 +2,16 @@ package api
 
 import (
 	"github.com/gorilla/mux"
+	"github.com/srao2021/rest_api/crud_caller"
 )
 
 func APIs() *mux.Router {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/employee/{id}", crud.GetEmployee).Methods("GET")
-	router.HandleFunc("/employee", crud.CreateEmployee).Methods("POST")
-	router.HandleFunc("/employee/{id}", crud.UpdateEmployee).Methods("PUT")
-	router.HandleFunc("/employee/{id}", crud.DeleteEmployee).Methods("DELETE")
+	router.HandleFunc("/employee", crud_caller.CreateEmployee).Methods("POST")
+	router.HandleFunc("/employee/{id}", crud_caller.UpdateEmployee).Methods("PUT")
+	router.HandleFunc("/employee/{id}", crud_caller.DeleteEmployee).Methods("DELETE")
 
 	return router
 }

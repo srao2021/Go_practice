@@ -1,4 +1,4 @@
-package db_conn
+package crud
 
 import (
 	"database/sql"
@@ -12,7 +12,7 @@ const (
 	DB_DSN = "postgres://postgres:postgres@localhost:5432/postgres"
 )
 
-func InsertEmployee(name string, age int) int {
+func DBInsertEmployee(name string, age int) int {
 
 	db := createConnection()
 	defer db.Close()
@@ -37,7 +37,7 @@ func createConnection() *sql.DB {
 	if err != nil {
 		log.Fatal("Failed to open a DB connection: ", err)
 	}
-	defer db.Close()
+	//defer db.Close()
 
 	err = db.Ping()
 
@@ -49,7 +49,7 @@ func createConnection() *sql.DB {
 	return db
 }
 
-func UpdateEmployee(id int, name string, age int) int64 {
+func DBUpdateEmployee(id int, name string, age int) int64 {
 
 	db := createConnection()
 
@@ -74,7 +74,7 @@ func UpdateEmployee(id int, name string, age int) int64 {
 	return rowsAffected
 }
 
-func DeleteEmployee(id int) int64 {
+func DBDeleteEmployee(id int) int64 {
 
 	db := createConnection()
 
